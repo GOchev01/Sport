@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mon Plan Bien-Être – 20 min / 2 jours</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sage: #7a9e7e;
+    --sage-light: #b5ceb8;
+    --sage-pale: #e8f0e9;
+    --earth: #8b6e4e;
+    --earth-light: #c4a882;
+    --cream: #f7f3ee;
+    --stone: #6b6b6b;
+    --ink: #2c2c2c;
+    --accent: #c97d4e;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--cream);
+    font-family: 'Jost', sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: linear-gradient(160deg, #3d5c42 0%, #5a7a5e 40%, #7a9e7e 100%);
+    padding: 60px 32px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  }
+  .hero-inner { max-width: 720px; margin: 0 auto; position: relative; }
+  .hero-tag {
+    display: inline-block;
+    background: rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.3);
+    color: #dceedd;
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+  }
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 6vw, 3.8rem);
+    font-weight: 300;
+    color: #fff;
+    line-height: 1.15;
+    margin-bottom: 16px;
+  }
+  .hero h1 em { font-style: italic; color: #c8e6ca; }
+  .hero p {
+    color: rgba(255,255,255,0.75);
+    font-size: 15px;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+    margin-bottom: 32px;
+  }
+  .hero-stats {
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  .stat {
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 12px;
+    padding: 12px 20px;
+    text-align: center;
+  }
+  .stat-val {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-lbl {
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    margin-top: 4px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 400;
+    color: var(--earth);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--sage-light);
+  }
+  .section-title .icon {
+    width: 36px; height: 36px;
+    background: var(--sage-pale);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  /* ── PROFILE CARD ── */
+  .profile-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 48px;
+  }
+  .profile-item {
+    background: #fff;
+    border: 1px solid #e8e2db;
+    border-radius: 12px;
+    padding: 16px 18px;
+  }
+  .profile-item .label {
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 4px;
+  }
+  .profile-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.05rem;
+    color: var(--ink);
+  }
+  .profile-item.alert { border-color: #f0c8a0; background: #fff8f2; }
+  .profile-item.alert .label { color: var(--accent); }
+
+  /* ── WEEK CALENDAR ── */
+  .week-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    margin-bottom: 48px;
+  }
+  .day-cell {
+    background: #fff;
+    border: 1px solid #e8e2db;
+    border-radius: 10px;
+    padding: 10px 4px;
+    text-align: center;
+    font-size: 11px;
+    color: var(--stone);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+  .day-cell .day-name { font-weight: 500; margin-bottom: 6px; }
+  .day-cell.active {
+    background: var(--sage);
+    border-color: var(--sage);
+    color: #fff;
+  }
+  .day-cell.active .day-dot { background: rgba(255,255,255,0.9); }
+  .day-cell.rest { opacity: 0.5; }
+  .day-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--sage-light);
+    margin: 4px auto 0;
+  }
+
+  /* ── SÉANCE BLOCK ── */
+  .seance {
+    background: #fff;
+    border: 1px solid #e8e2db;
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    transition: box-shadow 0.2s;
+  }
+  .seance:hover { box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+
+  .seance-header {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 20px 24px;
+    cursor: pointer;
+    user-select: none;
+  }
+  .seance-num {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem;
+    flex-shrink: 0;
+  }
+  .seance-A .seance-num { background: #e8f0e9; color: #4a7a4e; }
+  .seance-B .seance-num { background: #f0e8e0; color: #8b5a2b; }
+  .seance-C .seance-num { background: #e8eef0; color: #2b5a7a; }
+
+  .seance-meta { flex: 1; }
+  .seance-meta h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem;
+    font-weight: 400;
+    margin-bottom: 3px;
+  }
+  .seance-meta .sub {
+    font-size: 12px;
+    color: var(--stone);
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+  .pill {
+    background: var(--sage-pale);
+    color: var(--sage);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 500;
+  }
+  .pill.earth { background: #f5ede3; color: var(--earth); }
+  .pill.blue { background: #e3edf5; color: #2b5a7a; }
+
+  .toggle-icon {
+    font-size: 18px;
+    color: var(--stone);
+    transition: transform 0.25s;
+    flex-shrink: 0;
+  }
+  .seance.open .toggle-icon { transform: rotate(180deg); }
+
+  .seance-body {
+    display: none;
+    padding: 0 24px 24px;
+    border-top: 1px solid #f0ebe4;
+  }
+  .seance.open .seance-body { display: block; }
+
+  /* ── EXERCICE ITEM ── */
+  .ex-list { list-style: none; }
+  .ex-item {
+    display: grid;
+    grid-template-columns: 52px 1fr auto;
+    gap: 14px;
+    align-items: start;
+    padding: 16px 0;
+    border-bottom: 1px solid #f5f0ea;
+  }
+  .ex-item:last-child { border-bottom: none; }
+
+  .ex-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    color: var(--sage-light);
+    line-height: 1;
+    text-align: right;
+  }
+  .ex-content .ex-name {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: var(--ink);
+  }
+  .ex-content .ex-desc {
+    font-size: 12.5px;
+    color: var(--stone);
+    line-height: 1.6;
+  }
+  .ex-content .ex-tip {
+    font-size: 11.5px;
+    color: var(--accent);
+    margin-top: 5px;
+    font-style: italic;
+  }
+  .ex-duration {
+    background: var(--sage-pale);
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-size: 12px;
+    color: var(--sage);
+    font-weight: 500;
+    white-space: nowrap;
+    text-align: center;
+    line-height: 1.3;
+  }
+
+  /* ── TIPS ── */
+  .tips-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    margin-top: 8px;
+  }
+  .tip-card {
+    background: #fff;
+    border: 1px solid #e8e2db;
+    border-radius: 12px;
+    padding: 18px;
+  }
+  .tip-card .tip-icon { font-size: 20px; margin-bottom: 8px; }
+  .tip-card h4 {
+    font-size: 13px;
+    font-weight: 500;
+    margin-bottom: 6px;
+    color: var(--earth);
+  }
+  .tip-card p { font-size: 12.5px; color: var(--stone); line-height: 1.6; }
+
+  /* ── PROGRESS BAR ── */
+  .progress-week {
+    background: #fff;
+    border: 1px solid #e8e2db;
+    border-radius: 14px;
+    padding: 24px;
+    margin-bottom: 48px;
+  }
+  .progress-week h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    margin-bottom: 16px;
+    color: var(--earth);
+  }
+  .weeks { display: flex; flex-direction: column; gap: 10px; }
+  .week-row { display: flex; align-items: center; gap: 12px; }
+  .week-label { font-size: 12px; color: var(--stone); width: 80px; flex-shrink: 0; }
+  .week-bar-bg { flex: 1; height: 8px; background: #f0ebe4; border-radius: 4px; overflow: hidden; }
+  .week-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, var(--sage-light), var(--sage)); }
+  .week-note { font-size: 11.5px; color: var(--stone); width: 140px; flex-shrink: 0; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--ink);
+    padding: 32px;
+    text-align: center;
+  }
+  footer p {
+    font-size: 12px;
+    color: rgba(255,255,255,0.4);
+    line-height: 1.8;
+    max-width: 480px;
+    margin: 0 auto;
+  }
+  footer strong { color: rgba(255,255,255,0.65); }
+
+  @media (max-width: 520px) {
+    .profile-grid { grid-template-columns: 1fr; }
+    .tips-grid { grid-template-columns: 1fr; }
+    .week-grid { grid-template-columns: repeat(7,1fr); gap: 3px; }
+    .day-cell { padding: 7px 2px; font-size: 9px; }
+    .week-note { display: none; }
+    .ex-item { grid-template-columns: 36px 1fr auto; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <span class="hero-tag">Programme personnalisé · Mobilité & Douceur</span>
+    <h1>Mon plan <em>bien-être</em><br>au quotidien</h1>
+    <p>Un programme doux, debout, sans matériel, inspiré du Taï Chi, du Chi Kung et du yoga — conçu pour respecter vos genoux tout en renforçant votre corps.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">20</div><div class="stat-lbl">min / séance</div></div>
+      <div class="stat"><div class="stat-val">3–4×</div><div class="stat-lbl">par semaine</div></div>
+      <div class="stat"><div class="stat-val">3</div><div class="stat-lbl">séances alternées</div></div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+
+  <!-- PROFIL -->
+  <div class="section-title"><span class="icon">👤</span> Profil & précautions</div>
+  <div class="profile-grid">
+    <div class="profile-item"><div class="label">Objectif</div><div class="value">Mobilité, équilibre, bien-être</div></div>
+    <div class="profile-item"><div class="label">Style</div><div class="value">Taï Chi · Chi Kung · Yoga debout</div></div>
+    <div class="profile-item alert"><div class="label">⚠ Précaution</div><div class="value">Arthrose des genoux – jamais en flexion profonde, pas de choc</div></div>
+  </div>
+
+  <!-- CALENDRIER -->
+  <div class="section-title"><span class="icon">📅</span> Rythme hebdomadaire</div>
+  <div class="week-grid">
+    <div class="day-cell active"><div class="day-name">Lun</div><div class="day-dot"></div><div>A</div></div>
+    <div class="day-cell rest"><div class="day-name">Mar</div><div class="day-dot"></div><div>—</div></div>
+    <div class="day-cell active"><div class="day-name">Mer</div><div class="day-dot"></div><div>B</div></div>
+    <div class="day-cell rest"><div class="day-name">Jeu</div><div class="day-dot"></div><div>—</div></div>
+    <div class="day-cell active"><div class="day-name">Ven</div><div class="day-dot"></div><div>C</div></div>
+    <div class="day-cell rest"><div class="day-name">Sam</div><div class="day-dot"></div><div>—</div></div>
+    <div class="day-cell rest"><div class="day-name">Dim</div><div class="day-dot"></div><div>—</div></div>
+  </div>
+  <p style="font-size:12.5px;color:var(--stone);margin-top:-32px;margin-bottom:48px;text-align:center;">Exemple · à adapter selon vos disponibilités · toujours 1 jour de repos entre 2 séances</p>
+
+  <!-- SÉANCES -->
+  <div class="section-title"><span class="icon">🌿</span> Les 3 séances (en rotation)</div>
+
+  <!-- SÉANCE A -->
+  <div class="seance seance-A open">
+    <div class="seance-header" onclick="toggle(this)">
+      <div class="seance-num">A</div>
+      <div class="seance-meta">
+        <h3>Éveil & Circulation · Taï Chi / Chi Kung</h3>
+        <div class="sub"><span class="pill">Mobilité</span><span class="pill">Équilibre</span><span>~20 min</span></div>
+      </div>
+      <div class="toggle-icon">▾</div>
+    </div>
+    <div class="seance-body">
+      <ul class="ex-list">
+        <li class="ex-item">
+          <div class="ex-num">1</div>
+          <div class="ex-content">
+            <div class="ex-name">Respiration debout – Ancrage Chi Kung</div>
+            <div class="ex-desc">Pieds écartés largeur de hanches, genoux très légèrement fléchis (micro-flexion). Inspirez en levant doucement les bras sur les côtés, expirez en les redescendant. Visualisez une énergie qui monte depuis la terre.</div>
+            <div class="ex-tip">💡 La base de tout : active la respiration diaphragmatique et prépare le corps.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">2</div>
+          <div class="ex-content">
+            <div class="ex-name">Rotations douces des chevilles & poignets</div>
+            <div class="ex-desc">Assis(e) sur une chaise solide. Rotations lentes de chaque cheville (10× chaque sens), puis des poignets. Permet de chauffer les articulations périphériques sans contrainte sur les genoux.</div>
+            <div class="ex-tip">💡 Idéal pour l'arthrose : lubrification naturelle des articulations.</div>
+          </div>
+          <div class="ex-duration">2 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">3</div>
+          <div class="ex-content">
+            <div class="ex-name">Balancement du tronc – vague Chi Kung</div>
+            <div class="ex-desc">Debout, mains posées sur les hanches. Ondulation douce de gauche à droite comme un saule dans le vent. Puis avant/arrière en laissant les bras suivre naturellement. Mouvement continu et lent.</div>
+            <div class="ex-tip">💡 Libère les tensions lombaires et améliore la proprioception.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">4</div>
+          <div class="ex-content">
+            <div class="ex-name">Le « Repousser le ciel et la terre » – Chi Kung</div>
+            <div class="ex-desc">Une main monte vers le ciel, paume vers le haut, l'autre descend vers la terre, paume vers le bas. Alternez lentement en respirant. Étire la chaîne latérale et active l'ouverture thoracique.</div>
+            <div class="ex-tip">💡 Classique du Chi Kung – excellent pour la posture et les épaules.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">5</div>
+          <div class="ex-content">
+            <div class="ex-name">Marche sur place – Style Taï Chi</div>
+            <div class="ex-desc">Marche sur place très lente, en levant les genoux à peine. Bras en mouvement opposé naturel. Concentrez-vous sur le contact du pied avec le sol (talon puis plante). Ralentissez de plus en plus.</div>
+            <div class="ex-tip">💡 Active la circulation, améliore l'équilibre dynamique sans impact.</div>
+          </div>
+          <div class="ex-duration">4 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">6</div>
+          <div class="ex-content">
+            <div class="ex-name">Retour au calme – Respiration Chi Kung</div>
+            <div class="ex-desc">Même posture qu'au début. Inspirez en 4 temps, retenez 2 temps, expirez en 6 temps. Posez les mains sur le ventre, sentez le souffle descendre. 5 cycles complets.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SÉANCE B -->
+  <div class="seance seance-B">
+    <div class="seance-header" onclick="toggle(this)">
+      <div class="seance-num">B</div>
+      <div class="seance-meta">
+        <h3>Force Douce & Stabilité · Yoga Debout + Élastiques</h3>
+        <div class="sub"><span class="pill earth">Renforcement</span><span class="pill earth">Posture</span><span>~20 min</span></div>
+      </div>
+      <div class="toggle-icon">▾</div>
+    </div>
+    <div class="seance-body">
+      <ul class="ex-list">
+        <li class="ex-item">
+          <div class="ex-num">1</div>
+          <div class="ex-content">
+            <div class="ex-name">Échauffement – Cercles d'épaules & cou</div>
+            <div class="ex-desc">Debout ou assis(e). Roulez doucement les épaules en arrière, 10 fois. Puis inclinez la tête oreille-épaule de chaque côté, 5 secondes. Regardez à gauche, à droite. Évitez les cercles de tête complets.</div>
+          </div>
+          <div class="ex-duration">2 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">2</div>
+          <div class="ex-content">
+            <div class="ex-name">Posture de la Montagne avec ancrage – Yoga</div>
+            <div class="ex-desc">Debout, pieds parallèles, poids réparti sur toute la plante. Contractez légèrement le périnée et le ventre. Étirez le sommet du crâne vers le haut. Respirez 1 min dans cette posture, les yeux mi-clos.</div>
+            <div class="ex-tip">💡 Renforce la chaîne posturale, améliore l'équilibre statique.</div>
+          </div>
+          <div class="ex-duration">2 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">3</div>
+          <div class="ex-content">
+            <div class="ex-name">Tirade élastique assise – dos & bras</div>
+            <div class="ex-desc">Assis(e) sur une chaise, élastique passé autour d'un pied de table ou tenu devant vous. Tirez les coudes vers l'arrière en serrant les omoplates. 3 séries de 10 répétitions lentes. Expirez en tirant.</div>
+            <div class="ex-tip">💡 Renforce le dos et améliore la posture.</div>
+          </div>
+          <div class="ex-duration">4 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">4</div>
+          <div class="ex-content">
+            <div class="ex-name">Relevé de chaise – « Squats assistés »</div>
+            <div class="ex-desc">Assis(e) au bord de la chaise, pieds à plat. Levez-vous en poussant sur les talons, sans arrondir le dos. Aidez-vous légèrement des mains si nécessaire. 8 à 10 fois. Fesses ne touche le siège qu'effleurent.</div>
+            <div class="ex-tip">💡 Renforce cuisses et fessiers sans douleur aux genoux. Indispensable pour l'autonomie.</div>
+          </div>
+          <div class="ex-duration">4 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">5</div>
+          <div class="ex-content">
+            <div class="ex-name">Posture du Guerrier adapté – Yoga</div>
+            <div class="ex-desc">Debout face à la chaise (pour l'appui si besoin). Reculez un pied de 40 cm. Fléchissez très légèrement le genou avant (5-10° max). Bras ouverts en T. Respirez 5 fois, changez de côté. Jamais de flexion profonde.</div>
+            <div class="ex-tip">💡 Ouvre les hanches, renforce la ceinture sans surcharger les genoux.</div>
+          </div>
+          <div class="ex-duration">4 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">6</div>
+          <div class="ex-content">
+            <div class="ex-name">Étirement latéral debout – Détente</div>
+            <div class="ex-desc">Debout, main droite sur la hanche, bras gauche qui s'arc au dessus de la tête. Penchez doucement sur la droite. Tenez 30 secondes. Respirez dans l'étirement. Changez de côté.</div>
+          </div>
+          <div class="ex-duration">2 min</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- SÉANCE C -->
+  <div class="seance seance-C">
+    <div class="seance-header" onclick="toggle(this)">
+      <div class="seance-num">C</div>
+      <div class="seance-meta">
+        <h3>Équilibre & Sérénité · Taï Chi doux + Mobilité</h3>
+        <div class="sub"><span class="pill blue">Équilibre</span><span class="pill blue">Anti-stress</span><span>~20 min</span></div>
+      </div>
+      <div class="toggle-icon">▾</div>
+    </div>
+    <div class="seance-body">
+      <ul class="ex-list">
+        <li class="ex-item">
+          <div class="ex-num">1</div>
+          <div class="ex-content">
+            <div class="ex-name">Éveil du regard – Chi Kung des yeux</div>
+            <div class="ex-desc">Assis(e) sur une chaise. Regardez loin devant 10 secondes, puis près (bout de nez) 10 secondes. Dessinez un 8 lent avec les yeux. Palmez (paumes chaudes sur les yeux fermés) 30 secondes. Réduit la fatigue nerveuse.</div>
+          </div>
+          <div class="ex-duration">2 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">2</div>
+          <div class="ex-content">
+            <div class="ex-name">Le Flamant rose adapté – Équilibre unipodal</div>
+            <div class="ex-desc">Debout à côté de la chaise, une main posée dessus pour l'appui. Décolllez un pied du sol de 2-3 cm. Tenez 20 secondes. Posez, changez de côté. Progression : réduire l'appui sur la chaise semaine après semaine.</div>
+            <div class="ex-tip">💡 Priorité absolue : prévient les chutes. Essentiel après 50 ans.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">3</div>
+          <div class="ex-content">
+            <div class="ex-name">Rotation du bassin – Mobilité</div>
+            <div class="ex-desc">Debout, mains sur les hanches. Dessinez de grands cercles lents avec le bassin, comme si vous faisiez tourner un hula hoop imaginaire. 8 tours dans chaque sens. Gardez les épaules immobiles.</div>
+            <div class="ex-tip">💡 Lubrifie les hanches, mobilise le bas du dos, facilite la marche.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">4</div>
+          <div class="ex-content">
+            <div class="ex-name">La nuée de grues – Séquence Taï Chi lente</div>
+            <div class="ex-desc">Enchaînez lentement : bras qui s'ouvrent (inspiration), se ferment (expiration) comme des ailes. Pieds qui avancent doucement, poids transféré d'un pied à l'autre. Ralentissez le mouvement au maximum. Silence intérieur.</div>
+            <div class="ex-tip">💡 La séance Taï Chi pure — coordination, lenteur, conscience corporelle.</div>
+          </div>
+          <div class="ex-duration">5 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">5</div>
+          <div class="ex-content">
+            <div class="ex-name">Massage des genoux assis(e)</div>
+            <div class="ex-desc">Assis(e) sur une chaise. Frottez les paumes pour les réchauffer. Posez-les sur les genoux et effectuez de légères pressions circulaires autour de la rotule. 2 min par genou. Aucune pression sur l'os.</div>
+            <div class="ex-tip">💡 Soulage l'arthrose, active la circulation locale, vous reconnecter à vos articulations.</div>
+          </div>
+          <div class="ex-duration">4 min</div>
+        </li>
+        <li class="ex-item">
+          <div class="ex-num">6</div>
+          <div class="ex-content">
+            <div class="ex-name">Méditation debout – Immobilité active</div>
+            <div class="ex-desc">Revenez en posture de la montagne. Fermez les yeux. Portez toute l'attention sur la plante des pieds. Ressentez le contact avec le sol. Respirez librement. Laissez les pensées passer comme des nuages.</div>
+          </div>
+          <div class="ex-duration">3 min</div>
+        </li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- PROGRESSION -->
+  <br><br>
+  <div class="section-title"><span class="icon">📈</span> Progression sur 8 semaines</div>
+  <div class="progress-week">
+    <div class="weeks">
+      <div class="week-row">
+        <div class="week-label">Sem. 1–2</div>
+        <div class="week-bar-bg"><div class="week-bar" style="width:30%"></div></div>
+        <div class="week-note">Découverte, écoute du corps</div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Sem. 3–4</div>
+        <div class="week-bar-bg"><div class="week-bar" style="width:50%"></div></div>
+        <div class="week-note">Durée → 22 min, +1 répétition</div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Sem. 5–6</div>
+        <div class="week-bar-bg"><div class="week-bar" style="width:70%"></div></div>
+        <div class="week-note">Réduire l'appui chaise équilibre</div>
+      </div>
+      <div class="week-row">
+        <div class="week-label">Sem. 7–8</div>
+        <div class="week-bar-bg"><div class="week-bar" style="width:88%"></div></div>
+        <div class="week-note">Fluidité, transitions enchaînées</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONSEILS -->
+  <div class="section-title"><span class="icon">💚</span> Conseils essentiels</div>
+  <div class="tips-grid">
+    <div class="tip-card">
+      <div class="tip-icon">🦵</div>
+      <h4>Protéger les genoux</h4>
+      <p>Jamais de flexion à plus de 30°. Si une douleur apparaît, arrêtez l'exercice immédiatement. Portez des chaussures à semelle souple et antidérapante.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">💧</div>
+      <h4>Hydratation</h4>
+      <p>Buvez un verre d'eau avant et après chaque séance. Les articulations cartilagineuses ont besoin d'hydratation pour être lubrifiées.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🧘</div>
+      <h4>La douleur vs l'inconfort</h4>
+      <p>Une légère sensation de travail musculaire est normale. Une douleur articulaire aiguë est un signal d'arrêt. Faites la différence.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🌅</div>
+      <h4>Moment idéal</h4>
+      <p>Le matin après le petit-déjeuner (jamais à jeun) ou en début d'après-midi. Évitez le soir tardif qui peut perturber le sommeil.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">👟</div>
+      <h4>Surface et chaussures</h4>
+      <p>Pratiquez sur du carrelage ou du parquet (pas de tapis épais qui déstabilise). Des baskets légères ou des chaussons à semelle ferme.</p>
+    </div>
+    <div class="tip-card">
+      <div class="tip-icon">🩺</div>
+      <h4>Suivi médical</h4>
+      <p>Informez votre médecin ou kiné de ce programme. Ils peuvent l'adapter selon l'évolution de votre arthrose et vous orienter si besoin.</p>
+    </div>
+  </div>
+
+</div>
+
+<footer>
+  <p><strong>Programme indicatif – non substitutif à un avis médical.</strong><br>En cas de douleur inhabituelle, consultez votre médecin traitant ou un kinésithérapeute. Ce programme est conçu pour être adapté à votre ressenti et peut évoluer à votre rythme.</p>
+</footer>
+
+<script>
+  function toggle(header) {
+    const seance = header.closest('.seance');
+    seance.classList.toggle('open');
+  }
+</script>
+</body>
+</html>
